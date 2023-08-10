@@ -98,7 +98,7 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                     Padding(
                       padding: const EdgeInsets.only(
                         right: 12,
-                        left: 12,
+                        left: 10,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -134,7 +134,7 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                                                 fit: BoxFit.cover,
                                               )))
                                       .box
-                                      .width(context.screenWidth / 5)
+                                      .width(context.screenWidth / 5.15)
                                       .height(context.screenHeight / 18)
                                       .rounded
                                       .make(),
