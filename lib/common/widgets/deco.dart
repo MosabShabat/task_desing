@@ -130,7 +130,7 @@ class _CrossDecoState extends State<CrossDeco> {
         },
       );
     } else if (widget.ind == 3) {
-      if (products1.isEmpty) {
+      if (products2.isEmpty) {
         return NoDataMess(context);
       }
       return GridView.builder(
