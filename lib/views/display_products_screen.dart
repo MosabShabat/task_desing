@@ -138,9 +138,7 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                                       .height(context.screenHeight / 18)
                                       .rounded
                                       .make(),
-                                  // Image.asset(
-
-                                  // ).box.rounded.make(),
+                              
                                   10.heightBox,
                                   listText[index]
                                       .text
