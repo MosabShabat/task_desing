@@ -47,6 +47,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
               transition: Transition.leftToRight,
             );
           },
+          //
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
