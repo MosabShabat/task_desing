@@ -1,11 +1,9 @@
-
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:task_desing/constants/constants.dart';
 import 'package:task_desing/views/add_products_screen.dart';
 import '../common/widgets/deco.dart';
 import '../database/sqldb.dart';
-
 
 class DisplayProductsScreen extends StatefulWidget {
   const DisplayProductsScreen({super.key});
@@ -75,14 +73,19 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                     .color(whiteColor)
                     .margin(const EdgeInsets.all(10))
                     .border(
-                      width: 0.5,
-                      color: greyColor,
+                      width: 1.5,
+                      color: const Color.fromRGBO(236, 236, 236, 1),
                     )
                     .make(),
               ),
             ),
           ],
-          title: 'المنتجات'.text.fontFamily(bold).size(20).black.make(),
+          title: 'المنتجات'
+              .text
+              .fontFamily(bold)
+              .size(20)
+              .color(const Color(0xFF3E3E68))
+              .make(),
           centerTitle: true,
         ),
         body: Obx(
@@ -94,8 +97,8 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(
-                        right: 16,
-                        left: 16,
+                        right: 12,
+                        left: 12,
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -104,23 +107,40 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                               .text
                               .fontFamily(medium)
                               .size(16)
-                              .black
+                              .color(const Color(0xFF3E3E68))
                               .make(),
                           20.heightBox,
                           ListView.builder(
                             scrollDirection: Axis.horizontal,
+                            physics: const NeverScrollableScrollPhysics(),
                             itemCount: listImages.length,
                             itemBuilder: (context, index) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Image.asset(
-                                    listImages[index],
-                                    width: 100,
-                                    height: 50,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  DecoratedBox(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  const BorderRadius.all(
+                                                      Radius.circular(
+                                                10,
+                                              )),
+                                              image: DecorationImage(
+                                                image: AssetImage(
+                                                  listImages[index],
+                                                ),
+                                                fit: BoxFit.cover,
+                                              )))
+                                      .box
+                                      .width(context.screenWidth / 5)
+                                      .height(context.screenHeight / 18)
+                                      .rounded
+                                      .make(),
+                                  // Image.asset(
+
+                                  // ).box.rounded.make(),
                                   10.heightBox,
                                   listText[index]
                                       .text
@@ -131,15 +151,15 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                                 ],
                               )
                                   .box
-                                  .height(context.screenHeight / 8)
-                                  .width(context.screenWidth / 5)
-                                  .margin(const EdgeInsets.only(left: 16))
+                                  .height(context.screenHeight / 10)
+                                  .width(context.screenWidth / 4.5)
+                                  .margin(const EdgeInsets.only(left: 8))
                                   .color(whiteColor)
-                                  .padding(const EdgeInsets.all(8))
+                                  .padding(const EdgeInsets.all(6))
                                   .border(
                                     width: 1,
                                     color: index == selectedIndex
-                                        ? Colors.green
+                                        ? greenColor
                                         : whiteColor,
                                   )
                                   .color(whiteColor)
@@ -152,7 +172,7 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                                 });
                               });
                             },
-                          ).box.height(context.screenHeight / 8).make(),
+                          ).box.height(context.screenHeight / 10).make(),
                           20.heightBox,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -171,12 +191,20 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                                       elementequal,
                                     ),
                                     8.widthBox,
-                                    'تغيير عرض المنتجات الى افقي'
-                                        .text
-                                        .fontFamily(regular)
-                                        .size(12)
-                                        .color(redColor)
-                                        .make(),
+                                    GetStorage().read('deco') ?? false
+                                        ? 'تغيير عرض المنتجات الى رأسي'
+                                            .text
+                                            .fontFamily(regular)
+                                            .size(12)
+                                            .color(redColor)
+                                            .make()
+                                        //افقي
+                                        : 'تغيير عرض المنتجات الى افقي'
+                                            .text
+                                            .fontFamily(regular)
+                                            .size(12)
+                                            .color(redColor)
+                                            .make(),
                                   ],
                                 )
                                     .box
@@ -201,7 +229,9 @@ class _DisplayProductsScreenState extends State<DisplayProductsScreen> {
                                       .make(),
                                 ).box.height(context.screenHeight / 1.7).make()
                               : GetStorage().read('deco') ?? false
-                                  ?  CrossDeco(  ind: selectedIndex,)
+                                  ? CrossDeco(
+                                      ind: selectedIndex,
+                                    )
                                       .box
                                       .height(context.screenHeight / 1.7)
                                       .make()

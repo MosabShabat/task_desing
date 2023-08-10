@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:task_desing/views/display_products_screen.dart';
@@ -38,6 +39,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
       appBar: AppBar(
         backgroundColor: backgroundColor,
         toolbarHeight: 60,
+        leadingWidth: context.screenWidth / 7,
         leading: GestureDetector(
           onTap: () {
             Get.offAll(
@@ -46,20 +48,21 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
             );
           },
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              10.widthBox,
+              8.widthBox,
               const Icon(Icons.arrow_back_ios),
             ],
           )
               .box
-              .height(80)
-              .width(80)
+              .height(context.screenWidth / 8)
+              .width(context.screenHeight / 15)
               .roundedSM
               .color(whiteColor)
               .margin(const EdgeInsets.all(10))
               .border(
-                width: 0.5,
-                color: greyColor,
+                width: 1.5,
+                color: const Color.fromRGBO(236, 236, 236, 1),
               )
               .make(),
         ),
@@ -86,18 +89,27 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                   } else if (index <= selectedImages.length) {
                     return Stack(
                       children: [
-                        Image.file(
-                          selectedImages[index - 1],
-                          fit: BoxFit.fill,
-                        )
+                        DecoratedBox(
+                                decoration: BoxDecoration(
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.circular(
+                                      10,
+                                    )),
+                                    image: DecorationImage(
+                                      image: FileImage(
+                                        selectedImages[index - 1],
+                                      ),
+                                      fit: BoxFit.cover,
+                                    )))
                             .box
-                            .height(context.screenHeight / 12)
-                            .width(context.screenWidth / 5.3)
-                            .margin(const EdgeInsets.only(left: 16))
+                            .width(context.screenWidth / 4.5)
+                            .height(context.screenHeight / 10)
+                            .rounded
+                            .margin(const EdgeInsets.only(left: 2))
                             .make(),
                         Positioned(
                           top: 1,
-                          left: 15,
+                          left: 2,
                           child: GestureDetector(
                             onTap: () {
                               setState(() {
@@ -106,8 +118,8 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                             },
                             child: SvgPicture.asset(
                               forbidden2,
-                              width: 20,
-                              height: 20,
+                              width: 25,
+                              height: 25,
                             ),
                           ),
                         ),
@@ -117,7 +129,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                     return Container();
                   }
                 },
-              ).box.height(context.screenHeight / 12).make(),
+              ).box.height(context.screenHeight / 10).make(),
               20.heightBox,
               CustomButton(
                 wedRow: Row(
@@ -267,7 +279,7 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                       Get.snackbar(
                         'رسالة',
                         'تمت إضافة المنتج بنجاح',
-                        backgroundColor: greenColor,
+                        backgroundColor: greenColor.withOpacity(0.2),
                       );
                       prodNameController.clear();
                       storeNameController.clear();
@@ -279,11 +291,17 @@ class _AddProductsScreenState extends State<AddProductsScreen> {
                       );
                     }
                   } else {
-                    Get.snackbar(
-                      'خطأ',
-                      'هناك خطأ، تأكد من عدم ترك نص فارغ',
-                      backgroundColor: redColor,
-                    );
+                    selectedImages.isEmpty
+                        ? Get.snackbar(
+                            'خطأ',
+                            'الرجاء اضافة صورة',
+                            backgroundColor: redColor.withOpacity(0.2),
+                          )
+                        : Get.snackbar(
+                            'خطأ',
+                            'تأكد من عدم ترك حقل فارغ',
+                            backgroundColor: redColor.withOpacity(0.2),
+                          );
                   }
                 },
               ),

@@ -53,6 +53,7 @@ Row MainRow(data, BuildContext context) {
               .text
               .fontFamily(medium)
               .size(18)
+              .fontWeight(FontWeight.w500)
               .color(blackColor)
               .make(),
           Row(
@@ -79,7 +80,7 @@ Row MainRow(data, BuildContext context) {
                   .text
                   .fontFamily(MontserratLight)
                   .size(10)
-                  .color(lightColor)
+                  .color(greyColor.shade600)
                   .make(),
             ],
           )
@@ -87,7 +88,8 @@ Row MainRow(data, BuildContext context) {
               .width(data['store'].toString().length * 9)
               .height(30)
               .roundedSM
-              .color(const Color(0xFFA1A1A1))
+              // ignore: prefer_const_constructors
+              .color(Color.fromRGBO(238, 238, 238, 1))
               .make()
         ],
       ).box.height(context.screenHeight / 8).make()
@@ -130,6 +132,7 @@ Column CrossColumn(BuildContext context, data) {
               .text
               .fontFamily(medium)
               .size(18)
+              .fontWeight(FontWeight.w500)
               .color(blackColor)
               .make(),
           Row(
@@ -156,7 +159,7 @@ Column CrossColumn(BuildContext context, data) {
                   .text
                   .fontFamily(MontserratLight)
                   .size(10)
-                  .color(lightColor)
+                  .color(greyColor.shade600)
                   .make(),
             ],
           )
@@ -164,7 +167,7 @@ Column CrossColumn(BuildContext context, data) {
               .width(data['store'].toString().length * 9)
               .height(30)
               .roundedSM
-              .color(const Color(0xFFA1A1A1))
+              .color(const Color.fromRGBO(238, 238, 238, 1))
               .make()
         ],
       ).box.height(context.screenHeight / 10).make()
